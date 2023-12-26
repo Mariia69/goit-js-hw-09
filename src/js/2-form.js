@@ -1,3 +1,5 @@
+'use strict';
+
 const form = document.querySelector('.feedback-form');
 const storageKey = 'feedback-form-state';
 
