@@ -1,7 +1,3 @@
-import SimpleLightbox from "simplelightbox";
-import "simplelightbox/dist/simple-lightbox.min.css";
-
-
 const images = [
   {
     preview:
@@ -68,19 +64,32 @@ const images = [
   },
 ];
 
-const gallery = document.querySelector('.gallery');
+import SimpleLightbox from 'simplelightbox';
+import 'simplelightbox/dist/simple-lightbox.min.css';
 
-images.forEach(image => {
-  const galleryItem = `<li class="gallery-item">
-  <a class="gallery-link" href="${image.original}">
-    <img class="gallery-image" src="${image.preview}" alt="${image.description}">
-  </a>
-  </li>`;
+let handleKeyPress;
+const galleryContainer = document.querySelector('.gallery');
+galleryContainer.innerHTML = images.reduce(
+  (html, image) =>
+    html +
+    `
+    <li class="gallery-item">
+    <a class="gallery-link" href="${image.original}">
+      <img 
+        class="gallery-image" 
+        src="${image.preview}" 
+        alt="${image.description}" 
+      />
+    </a>
+  </li>
+`,
+  ''
+);
 
-  gallery.insertAdjacentHTML('beforeend', galleryItem);
+galleryContainer.addEventListener('click', event => {
+  event.preventDefault();
 });
-
-new SimpleLightbox('.gallery a', {
+const lightbox = new SimpleLightbox('.gallery a', {
   captionsData: 'alt',
   captionDelay: 250,
 });
